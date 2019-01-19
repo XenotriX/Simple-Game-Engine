@@ -10,7 +10,7 @@ Game::Game(std::string name, int width, int height)
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;
   _window = new sf::RenderWindow(sf::VideoMode(width, height), name, sf::Style::Default, settings);
-  sf::View view(sf::FloatRect(600.0f, 0.0f, 1280.0f, 720.0f));
+  sf::View view(sf::Vector2f(0, 0), sf::Vector2f(width, height));
   _window->setView(view);
   _window->setFramerateLimit(300);
 }
@@ -22,8 +22,8 @@ Game::~Game()
 
 void Game::Start(IGameLogic* logic)
 {
-  _logic = logic;
-  _logic->init();
+  logic->setWindow(_window);
+  logic->init();
   int last_time = Engine::getTime();
   float lag = 0.0f;
 
@@ -51,11 +51,11 @@ void Game::Start(IGameLogic* logic)
     lag = ticks - ticks_rounded;
 
     for (int i = 0; i < ticks_rounded; i++) {
-      _logic->update(_window);
+      logic->update();
     }
 
     _window->clear(sf::Color::Blue);
-    _logic->render(_window);
+    logic->render();
     _window->display();
   }
 }

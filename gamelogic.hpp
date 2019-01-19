@@ -8,8 +8,14 @@ namespace Engine
   {
   public:
     virtual void init() = 0;
-    virtual void update(sf::RenderWindow*) = 0; // Tmp until Camera is implemented
-    virtual void render(sf::RenderTarget*) = 0;
+    virtual void update() = 0;
+    virtual void render() = 0;
+    void setWindow(sf::RenderWindow* window)
+    {
+      this->window = window;
+    }
+  protected:
+    sf::RenderWindow* window;
   };
 }
 

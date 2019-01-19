@@ -12,7 +12,6 @@ namespace Engine
     ~Game();
     void Start(IGameLogic*);
   private:
-    IGameLogic* _logic;
     sf::RenderWindow* _window;
   };
 }
